@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index :: dynamic(~{::main})}">
+
+<body>
+	<main style="padding-top: 90px">
+		<th:block th:if="${#lists.isEmpty(lstBills)}">
+		<div>
+			<div class="row">
+				<section id="contact" class="contact col-6">
+				
+						<div class="col-lg-12 mt-lg-0">
+						<div class="section-title">
+							<h2>Order</h2>
+							<p>Infomation</p>
+						</div>
+		                            <form action="/cart/pay" method="post" role="form" class="php-email-form">
+		                                <div class="form-row">
+		                                    <div class="col-md-6 form-group">
+		                                    <label for="email" class="ml-2">Email</label>
+		                                        <input th:value="${billShow.user.emailUser}" type="email" class="form-control" name="email" id="email" placeholder="Your Email" disabled="disabled" />
+		                                      
+		                                    </div>
+		                                    
+		                                    <div class="col-md-6 form-group">
+		                                    <label for="dateNow" class="ml-2">Date</label>
+		                                        <input th:value="${billShow.timeAdd}" type="text" name="dateNow" class="form-control" id="dateNow"  disabled="disabled" />
+		                                    
+		                                    </div>
+		                                </div>
+		                                <div class="form-row">
+		                                <div class="col-md-6 form-group">
+		                                	<label for="address" class="ml-2">Address</label>
+		                                    <textarea th:text="${billShow.addressBill}" class="form-control" name="address" rows="3" data-rule="required" data-msg="Vui lòng nhập địa chỉ" placeholder="Address" disabled="disabled"></textarea>
+		                                    <div class="validate"></div>
+		                                </div>
+		                                <div class="col-md-6 form-group">
+		                                    <label for="totalMoney" class="ml-2">Total Money</label>
+		                                        <input th:value="${#numbers.formatDecimal(billShow.totalMoney, 0, 'COMMA', 0,
+													'POINT')} + '  đ'" type="text" name="totalMoney" class="form-control" id="dateNow"  disabled="disabled" />
+		                                    	
+		                                    </div>
+		                                
+		                                </div>
+		                            </form>
+		                        </div>
+		                        </section>
+				<section id="cart" class="cart col-6" >
+					<div class="" data-aos="fade-up">
+		
+						<div class="section-title">
+							<h2>Order</h2>
+							<p>Detail</p>
+						</div>
+						<form method="post" >
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Image</th>
+										<th>Name product</th>
+										<th>Price</th>
+										<th>Quantity</th>
+										<th>Into Money</th>
+									</tr>
+								</thead>
+								<div th:each="item:${billShow.billDetails}">
+									<tbody>
+										<tr>
+											<td><img width="40px" class="mr-2"
+												th:src="|${item.product.imageProduct}|"></td>
+											<td>[[${item.product.nameProduct}]]</td>
+											<td>
+												<p style="margin-top: 18px">
+													[[${#numbers.formatDecimal(item.priceProduct, 0, 'COMMA', 0,
+													'POINT')}]] <u> đ</u>
+												</p>
+											</td>
+											<td>
+											<p style="margin-top: 18px">
+													[[${#numbers.formatDecimal(item.quantity, 0, 'COMMA', 0,
+													'POINT')}]] 
+												</p>
+											
+											</td>
+											<td><input name="into-money"
+												th:value="*{#numbers.formatDecimal(item.intoMoney, 0, 'COMMA', 0, 'POINT')}"
+												disabled style="border: none;"></td>
+										</tr>
+									</tbody>
+								</div>
+							</table>
+						</form>
+						
+					</div>
+				</section>
+			</div>
+			<section id="cart" class="cart" >
+				<div class="container" data-aos="fade-up">
+	
+					<div class="section-title" style="width: 180px;margin-left: auto;margin-right: auto;">
+						<h2>Bill</h2>
+						<p>All Bill</p>
+					</div>
+					<form method="post" >
+						<table class="table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Date</th>
+									<th>Total Money</th>
+									<th>Status</th>
+									<th>Address</th>
+									<th>Show Detail</th>
+								</tr>
+							</thead>
+							<div th:each="item:${lstBill}">
+								<tbody>
+									<tr>
+										<td>
+											<p style="margin-top: 18px">
+												[[${item.idBill}]]
+											</p>
+										</td>
+										<td>[[${item.timeAdd}]]</td>
+										<td>
+										<p style="margin-top: 18px">
+												[[${#numbers.formatDecimal(item.totalMoney, 0, 'COMMA', 0,
+												'POINT')}]] 
+											</p>
+										
+										</td>
+										<td>[[${item.statusObject.nameStatus}]]</td>
+										<td>[[${item.addressBill}]]</td>
+										<td class="row mt-3">
+											<div>
+												<a th:href="@{|/cart/checkout?idBill=${item.idBill}|}"
+													class="get-started-btn">Show</a>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</div>
+						</table>
+					</form>
+					
+					 
+				</div>
+			</section>
+		</div>
+		
+		</th:block>
+		<th:block th:unless="${#lists.isEmpty(lstBills)}">
+			<div class="section-title">
+				
+				<p class="mt-5" style="width: 600px; margin-left: auto;margin-right: auto;">Hiện tại chưa có bill nào</p>
+			</div>
+		</th:block>
+		
+	</main>
+
+</body>
+
+</html>

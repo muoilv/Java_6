@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}" >
+    
+  <body>
+   <main style="padding-top: 90px" >
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center">
+          <div class="row flex-grow">
+            <div class="col-lg-4 mx-auto">
+              <div class="auth-form-light text-left p-5">
+                <div class="brand-logo">
+                  <img src="/resources/style/admin/assets/images/logo.svg">
+                </div>
+                <h4>Hello! let's get started</h4>
+                <h6 class="font-weight-light">Sign in to continue</h6>
+                <form th:action="@{/security/login}" class="pt-3" method="POST">
+                  <div class="form-group">
+                   	<input name="email" type="text"  class="form-control form-control-lg"  placeholder="Email"/>
+                  </div>
+                  <div class="form-group">
+                    <input name="password" type="password"  class="form-control form-control-lg"  placeholder="Password"/>
+                  </div>
+                  <div>
+	                  <p th:text="${message}" > </p>
+                  </div>
+                  <div class="mt-3">
+                    <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="submit" >SIGN IN</button>
+                  </div>
+                  <div class="my-2 d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                        <input name="remember-me" type="checkbox" id="keep_me" ><label for="keep_me" class=" text-muted" >Remember me</label>
+                    </div>
+                  </div>
+                  
+                  <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="/security/register" class="text-primary">Create</a>
+                  </div>
+                </form >
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    </main>
+    
+  </body>
+</html>

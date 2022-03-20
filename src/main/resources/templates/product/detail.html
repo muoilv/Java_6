@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+
+<head>
+	
+</head>
+<body>
+    <main style="padding-top: 90px" >
+  <div th:object="${proDetail}">
+
+  	<!-- ======= ảnh tên giá ======= -->
+    <section id="features" class="features">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="image col-lg-6" th:style='|background-image: url("*{imageProduct}");height:500px |' data-aos="fade-right"></div>
+          <div class="col-lg-6 mt-5" data-aos="fade-left" data-aos-delay="30">
+            <div class="icon-box mt-5 mt-lg-0" data-aos="zoom-in" data-aos-delay="50">
+              <p class="name" style="font-size: 28px;color: black;" >[[*{nameProduct}]]	</p>
+              <p class="price" style="font-family:Montserrat, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 25px;color: black;">[[*{#numbers.formatDecimal(priceProduct, 0, 'COMMA', 0, 'POINT')}]]<u>đ</u></p>
+              
+              <div class="start-rate" style="margin-left: 60px;">
+              	<i class="material-icons" style="font-size:24px;color:yellow">star</i>
+              	<i class="material-icons" style="font-size:24px;color:yellow">star</i>
+              	<i class="material-icons" style="font-size:24px;color:yellow">star</i>
+              	<i class="material-icons" style="font-size:24px;color:yellow">star</i>
+              	<i class="material-icons" style="font-size:24px;color:yellow">star_half</i>
+              </div>
+              <br>
+              <div class="padding-left"> Tình trạng : <label   th:style="|color: *{statusObject.idStatus == 'ST01' ? 'green' : 'red'}|">  [[*{statusObject.idStatus == 'ST01'? 'Còn hàng' : 'Hết hàng'}]]</label></div> 
+            </div>
+            <div class="add-to-cart">
+            	<a class="get-started-btn scrollto" th:style="|display: *{statusObject.idStatus == 'ST01' ? 'inline-block;' : 'none'} ;margin:30px 75px|" th:href="@{|/cart/add?idproduct=*{idProduct}|}">
+            		 Thêm vào giỏ
+            	</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End ảnh tên giá -->
+  	<hr>
+  	<!-- thông số kĩ thuật -->
+  	<section id="features" class="features"> 
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-6 mt-5"  data-aos="fade-right">
+          		<h4 class="name-detail">Đồng hồ thời trang [[*{nameProduct}]]</h4>
+          		<p class="description-detail">[[*{descriptionProduct}]]</p>
+          </div>
+          <div class="col-lg-6 mt-5" data-aos="fade-left" data-aos-delay="50">
+            <table class="table">
+            	<tbody>
+            		<tr>
+            			<td class="title">Kích thước mặt</td>
+            			<td class="value">[[*{caseDiameter}]] MM</td>
+            		</tr>
+            		<tr>
+            			<td class="title">Màu sắc</td>
+            			<td class="value">[[*{colorProduct}]]</td>
+            		</tr>
+            		<tr>
+            			<td class="title">Mặt kính</td>
+            			<td class="value">[[*{faceGlasses}]]</td>
+            		</tr>
+            		<tr>
+            			<td class="title">Loại dây</td>
+            			<td class="value">[[*{strapProduct}]]</td>
+            		</tr>
+            		<tr>
+            			<td class="title">Loại máy</td>
+            			<td class="value">[[*{typeMachine}]]</td>
+            		</tr>
+            		
+            	</tbody>
+            </table>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End thông số kĩ thuật -->
+    
+    
+     <section id="other-product" class="other-product">
+                <div class="container" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Product</h2>
+                        <p>Other Product</p>
+                    </div>
+
+         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="20">
+			<div th:each="pro:${listProByCate}" >
+				<a th:href="@{|/product/detail/${pro.idProduct}|}">
+				  <div th:class="|col-lg-3 col-md-4 portfolio-item filter-${pro.category.idCategory}|" style="height: 430px">
+				  	<div class="img img-fluid ">
+				  		<img th:src="${pro.imageProduct}" class="img-fluid"  style="height: 245px">
+				  	</div>
+				  	<div class="info"> 
+				  		<h4>[[${pro.nameProduct}]]</h4>
+		                <h3>[[${pro.category.nameCategory}]]</h3>
+		                <p th:text="*{#numbers.formatDecimal(pro.priceProduct, 0, 'COMMA', 2, 'POINT')}"></p>
+		                <div class="add-to-cart" style="text-align: center;">
+			            	<a class="get-started-btn scrollto" th:style="|display:${pro.statusObject.idStatus == 'ST01' ? 'inline-block' : 'none'}|" th:href="@{|/user/cart/add?idproduct=${pro.idProduct}|}"> Thêm vào giỏ </a>
+		            </div>
+		          </div>
+	          	</a>
+			</div>
+		
+        </div>
+
+      </div>
+    </section>
+
+    </div>
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>Contact Us</p>
+        </div>
+
+        <div>
+          <iframe style="border:0; width: 100%; height: 270px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="row mt-5">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="icofont-google-map"></i>
+                <h4>Location:</h4>
+                <p>A108 Adam Street, New York, NY 535022</p>
+              </div>
+
+              <div class="email">
+                <i class="icofont-envelope"></i>
+                <h4>Email:</h4>
+                <p>info@example.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="icofont-phone"></i>
+                <h4>Call:</h4>
+                <p>+1 5589 55488 55s</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="form-row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  <div class="validate"></div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                  <div class="validate"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                <div class="validate"></div>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                <div class="validate"></div>
+              </div>
+              <div class="mb-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+    </main>
+
+</body>
+
+</html>

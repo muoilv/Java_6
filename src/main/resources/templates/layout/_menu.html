@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" style="background: rgba(0, 0, 0, 0.8)" class="fixed-top">
+        <div class="container d-flex align-items-center justify-content-between">
+            <a class="logo" href="/product/index">
+                <img src="/resources/logo_template/logo.png" class="img-fluid" /></a>
+
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+            <nav class="nav-menu d-none d-lg-block">
+                <ul>
+                    <li class="active"><a href="/product/index#about">Home</a></li>
+                    <li><a href="/product/index#about">About</a></li>
+                    <li><a href="/product/index#portfolio">Product</a></li>
+                    <li><a href="/cart/list">Cart</a></li>
+                    <li><a href="/product/index#contact">Contact</a></li>
+                    
+                    <!--  check signin -->
+                    <th:block th:if="${#request.remoteUser}">
+                    	<li class="drop-down">
+                    		<span sec:authentication="name" style="color: #ffc451;"></span>
+                    		<ul>
+                    			<li><a th:href="@{/security/logoff}" >Sign Out</a></li>
+                    			<li th:if="${#request.isUserInRole('ADMIN')}">
+		                    		<a th:href="@{/admin/home/index}" >Admin</a>
+		                    	</li>
+		                    	<li th:if="${session.displayAllBill}" >
+						            <a th:href="@{/cart/checkout}" >Your Order</a>
+		                    	</li>
+                    		</ul>
+                    	</li>
+                    </th:block>
+                    <th:block th:unless="${#request.remoteUser}">
+                    	<li>
+                    		<a th:href="@{/security/login/form}" >Sign In</a>
+                    	</li>
+                    </th:block>
+                    
+                   <!--  end check signin -->
+                </ul>
+            </nav>
+            <!-- .nav-menu -->
+
+            <a href="/product/index#about"></a>
+        </div>
+    </header>
+    <!-- End Header -->
+</body>
+
+</html>
